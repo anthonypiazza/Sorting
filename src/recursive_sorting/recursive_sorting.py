@@ -7,18 +7,16 @@ def merge( arrA, arrB ):
     merged_arr = []
     
     while len(arrA) >= 1:
-        pointerA = arrA[0]
-        pointerB = arrB[0]
-        print(f"Array A: {arrA}, Array B: {arrB}, Merged Array: {merged_arr}")
+        
+        # print(f"Array A: {arrA}, Array B: {arrB}, Merged Array: {merged_arr}")
         if arrB == []:
-            for j in arrA:
-                merged_arr.append(j)
-        elif pointerA < pointerB:
-            merged_arr.append(pointerA)
-            arrA.remove(pointerA)
+            for j in range(len(arrA)):
+                merged_arr.append(arrA.pop(0))
         else:
-            merged_arr.append(pointerB)
-            arrB.remove(pointerB)
+            if arrA[0] < arrB[0]:
+                merged_arr.append(arrA.pop(0))
+            else:
+                merged_arr.append(arrB.pop(0))
     if arrB != []:
         for k in arrB:
             merged_arr.append(k)
@@ -34,28 +32,16 @@ def merge( arrA, arrB ):
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
-    first = 0
-    last = len(arr) - 1
-    middle = (last-first) // 2
-        
-    arrA = arr[:middle]
-    arrB = arr[middle:]
-
-    print(f"Full Array: {arr}")
-    print(f"First: {first}, Last: {last}, Middle: {middle}")
-    print(f"Left Hand Side: {arrA}, Right Hand Side: {arrB}")
-
-
-    while len(arr) > 1:
-        # merge_sort(arrB)
-        merge_sort(arrA)
-    
-    
-    
     if len(arr) <= 1:
-        return arr[0]
+        return arr
 
-    print("All down to one")
+    middle = len(arr) // 2
+        
+    arrA = merge_sort(arr[:middle])
+    arrB = merge_sort(arr[middle:])
+
+
+    return merge(arrA, arrB)
 
     # print("Single Element")
     #     merge(arrA, arrB)
